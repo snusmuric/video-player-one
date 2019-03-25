@@ -1,0 +1,11 @@
+
+|squid:S1450"YRemove the "playerView" field and declare it as a local variable in the relevant methods.(Ñ¡ëÜøÿÿÿÿ8ÏËé ›-
+asquid:S25832"CChange this condition so that it does not always evaluate to "true"(ŸŞ·»8ÏËé ›-
+zsquid:UselessImportCheck"ORemove this unused import 'com.google.android.exoplayer2.ExoPlaybackException'.(¾‚¤™8ÏËé ›-
+}squid:UselessImportCheck"MRemove this unused import 'com.google.android.exoplayer2.PlaybackParameters'.(­ÈÓÿÿÿÿÿ8ÏËé ›-
+qsquid:UselessImportCheck"ARemove this unused import 'com.google.android.exoplayer2.Player'.(­òÖËÿÿÿÿÿ8ÏËé ›-
+squid:UselessImportCheck"]Remove this unused import 'com.google.android.exoplayer2.trackselection.TrackSelectionArray'.(ˆà¡šùÿÿÿÿ8ÏËé ›-
+squid:UselessImportCheck"QRemove this unused import 'com.google.android.exoplayer2.source.TrackGroupArray'.(íëÈıûÿÿÿÿ8ÏËé ›-
+nsquid:UselessImportCheck"CRemove this unused import 'com.google.android.exoplayer2.Timeline'.(æÔôœ8ÏËé ›-
+psquid:UselessImportCheck"@Remove this unused import 'android.support.annotation.Nullable'.(Ö‹øïüÿÿÿÿ8ÏËé ›-
+lsquid:MaximumInheritanceDepth"<This class has 7 parents which is greater than 5 authorized.(‚öÛè8ÏËé ›-
