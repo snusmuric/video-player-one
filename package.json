@@ -1,6 +1,6 @@
 {
-  "name": "capacitor-video-player",
-  "version": "0.0.4-2",
+  "name": "@irontec/capacitor-video-player",
+  "version": "0.0.1",
   "description": "Capacitor Video Player Plugin",
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -10,13 +10,20 @@
     "watch": "tsc --watch",
     "prepublishOnly": "npm run build"
   },
-  "author": "Jean Pierre Quéau",
+  "private": false,
+  "authors": [
+    "Jean Pierre Quéau",
+    {
+      "name": "Axier Fernandez",
+      "email": "afernandez@irontec.com"
+    }
+  ],
   "license": "MIT",
   "dependencies": {
-    "@capacitor/core": "^1.0.0-beta.13"
+    "@capacitor/core": "^1.0.0-beta.19"
   },
   "devDependencies": {
-    "typescript": "^2.6.2"
+    "typescript": "~3.2.4"
   },
   "files": [
     "dist/",
@@ -42,9 +49,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jepiqueau/capacitor-video-player"
+    "url": "https://github.com/irontec/capacitor-video-player"
   },
   "bugs": {
-    "url": "https://github.com/jepiqueau/capacitor-video-player/issues"
+    "url": "https://github.com/irontec/capacitor-video-player/issues"
   }
 }
