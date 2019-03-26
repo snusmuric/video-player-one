@@ -1,4 +1,4 @@
-package com.irontec.capacitor.videoplayer;
+package com.irontec.capacitor.videoplayerone;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;

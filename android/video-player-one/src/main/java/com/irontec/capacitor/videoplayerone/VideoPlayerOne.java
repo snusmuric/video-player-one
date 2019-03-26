@@ -1,4 +1,4 @@
-package com.irontec.capacitor.videoplayer;
+package com.irontec.capacitor.videoplayerone;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -12,8 +12,8 @@ import com.getcapacitor.PluginMethod;
 
 
 @NativePlugin()
-public class VideoPlayer extends Plugin {
-    private static final String TAG = "VideoPlayer";
+public class VideoPlayerOne extends Plugin {
+    private static final String TAG = "VideoPlayerOne";
 
     @PluginMethod()
     public void play(PluginCall call) {
