@@ -1,5 +1,5 @@
 {
-  "name": "@irontec/capacitor-video-player",
+  "name": "@irontec/video-player",
   "version": "0.0.1",
   "description": "Capacitor Video Player Plugin",
   "main": "dist/esm/index.js",
@@ -49,9 +49,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/irontec/capacitor-video-player"
+    "url": "https://github.com/irontec/video-player"
   },
   "bugs": {
-    "url": "https://github.com/irontec/capacitor-video-player/issues"
+    "url": "https://github.com/irontec/video-player/issues"
   }
 }

@@ -3,7 +3,7 @@ Capacitor Video Player Plugin is a custom Native Capacitor plugin to play video
 
 ## View Me
 
-[capacitor-video-player](https://pwacapacitorvideoplayertest.firebaseapp.com)
+[video-player](https://pwacapacitorvideoplayertest.firebaseapp.com)
 
 
 ## Methods available
@@ -12,13 +12,13 @@ Capacitor Video Player Plugin is a custom Native Capacitor plugin to play video
 
 ## To use the Plugin in your Project
 ```bash
-npm install --save capacitor-video-player@latest
+npm install --save video-player@latest
 ```
 
-Ionic App showing an integration of [capacitor-video-player plugin](https://github.com/jepiqueau/ionic-capacitor-video-player)
+Ionic App showing an integration of [video-player plugin](https://github.com/jepiqueau/ionic-video-player)
 
 PWA App showing an integration of 
-[capacitor-video-player plugin](https://github.com/jepiqueau/ionicpwacapacitorvideoplayer.git)
+[video-player plugin](https://github.com/jepiqueau/ionicpwacapacitorvideoplayer.git)
 
 
 ## IOS Plugin 

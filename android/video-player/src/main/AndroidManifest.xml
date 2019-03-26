@@ -1,0 +1,11 @@
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.irontec.capacitor.videoplayer">
+    <uses-permission android:name = "android.permission.INTERNET"/>
+
+    <application>
+        <activity android:name="com.irontec.capacitor.videoplayer.VideoPlayerActivity">
+        </activity>
+    </application>
+
+</manifest>
