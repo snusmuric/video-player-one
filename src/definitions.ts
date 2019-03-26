@@ -1,25 +1,25 @@
 declare global {
   interface PluginRegistry {
-    CapacitorVideoPlayer?: CapacitorVideoPlayerPlugin;
+    VideoPlayerOne?: VideoPlayerOnePlugin;
   }
 }
 
-export interface CapacitorVideoPlayerPlugin {
+export interface VideoPlayerOnePlugin {
   /**
-   * Playing a video 
-   * @param {capVideoPlayerOptions} options { url: string }
-   * @returns {Promise<VideoPlayerResult>} {result: boolean}
+   * Playing a video
+   * @param {VideoPlayerOneOptions} options { url: string }
+   * @returns {Promise<VideoPlayerOneResult>} {result: boolean}
    */
-  play(options: capVideoPlayerOptions): Promise<capVideoPlayerResult>; 
+  play(options: VideoPlayerOneOptions): Promise<VideoPlayerOneResult>;
 }
 
-export interface capVideoPlayerOptions {
+export interface VideoPlayerOneOptions {
   /**
    * The url of the video to play
    */
   url: string;
 }
-export interface capVideoPlayerResult {
+export interface VideoPlayerOneResult {
   /**
    * result set to true when successful else false
    */

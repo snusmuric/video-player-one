@@ -1,5 +1,5 @@
 {
-  "name": "@irontec/video-player",
+  "name": "@irontec/video-player-one",
   "version": "0.0.1",
   "description": "Capacitor Video Player Plugin",
   "main": "dist/esm/index.js",
@@ -29,7 +29,7 @@
     "dist/",
     "ios/",
     "android/",
-    "CapacitorVideoPlayer.podspec"
+    "VideoPlayerOne.podspec"
   ],
   "keywords": [
     "capacitor",
@@ -49,9 +49,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/irontec/video-player"
+    "url": "https://github.com/irontec/video-player-one"
   },
   "bugs": {
-    "url": "https://github.com/irontec/video-player/issues"
+    "url": "https://github.com/irontec/video-player-one/issues"
   }
 }

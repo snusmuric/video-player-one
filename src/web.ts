@@ -1,7 +1,7 @@
 import { WebPlugin } from '@capacitor/core';
-import { CapacitorVideoPlayerPlugin, capVideoPlayerOptions, capVideoPlayerResult  } from './definitions';
+import { VideoPlayerOnePlugin, VideoPlayerOneOptions, VideoPlayerOneResult  } from './definitions';
 
-export class CapacitorVideoPlayerWeb extends WebPlugin implements CapacitorVideoPlayerPlugin {
+export class VideoPlayerOneWeb extends WebPlugin implements VideoPlayerOnePlugin {
 
   private _videoEl: any;
   private _videoContainer: HTMLDivElement;
@@ -10,12 +10,12 @@ export class CapacitorVideoPlayerWeb extends WebPlugin implements CapacitorVideo
 
   constructor() {
     super({
-      name: 'CapacitorVideoPlayer',
+      name: 'VideoPlayerOne',
       platforms: ['web']
     });
   }
 
-  async play(options: capVideoPlayerOptions): Promise<capVideoPlayerResult> {
+  async play(options: VideoPlayerOneOptions): Promise<VideoPlayerOneResult> {
     let url:string = options.url;
     if (url == null) {
       return Promise.reject("Must provide a Video Url");
@@ -38,7 +38,7 @@ export class CapacitorVideoPlayerWeb extends WebPlugin implements CapacitorVideo
     this._container.style.display = 'flex';
     this._container.style.alignItems = 'center';
     this._container.style.justifyContent = 'center';
-    this._container.style.backgroundColor = '#000000';  
+    this._container.style.backgroundColor = '#000000';
     this._container.style.zIndex = '99997';
     document.body.appendChild(this._container);
 
@@ -77,9 +77,9 @@ export class CapacitorVideoPlayerWeb extends WebPlugin implements CapacitorVideo
     this._videoEl.style.width = "100%";
     /*
     this._videoEl.onplay = () => {
-      if(!this._videoEl.webkitDisplayingFullscreen) this._videoEl.webkitEnterFullscreen();           
-      this._videoEl.webkitEnterFullscreen();           
-    }; 
+      if(!this._videoEl.webkitDisplayingFullscreen) this._videoEl.webkitEnterFullscreen();
+      this._videoEl.webkitEnterFullscreen();
+    };
     */
     this._videoEl.onended = () => {
       this._container.remove();
@@ -87,7 +87,7 @@ export class CapacitorVideoPlayerWeb extends WebPlugin implements CapacitorVideo
 
     await this._videoContainer.appendChild(this._videoEl);
     if (this._videoEl.requestFullscreen) {
-      this._videoEl.requestFullscreen();           
+      this._videoEl.requestFullscreen();
     } else if (this._videoEl.mozRequestFullScreen) { /* Firefox */
       this._videoEl.mozRequestFullScreen();
     } else if (this._videoEl.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
@@ -100,6 +100,6 @@ export class CapacitorVideoPlayerWeb extends WebPlugin implements CapacitorVideo
   }
 }
 
-const CapacitorVideoPlayer = new CapacitorVideoPlayerWeb();
+const VideoPlayerOne = new VideoPlayerOneWeb();
 
-export { CapacitorVideoPlayer };
+export { VideoPlayerOne };

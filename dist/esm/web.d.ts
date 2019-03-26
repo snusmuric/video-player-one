@@ -1,13 +1,13 @@
 import { WebPlugin } from '@capacitor/core';
-import { CapacitorVideoPlayerPlugin, capVideoPlayerOptions, capVideoPlayerResult } from './definitions';
-export declare class CapacitorVideoPlayerWeb extends WebPlugin implements CapacitorVideoPlayerPlugin {
+import { VideoPlayerOnePlugin, VideoPlayerOneOptions, VideoPlayerOneResult } from './definitions';
+export declare class VideoPlayerOneWeb extends WebPlugin implements VideoPlayerOnePlugin {
     private _videoEl;
     private _videoContainer;
     private _container;
     private _url;
     constructor();
-    play(options: capVideoPlayerOptions): Promise<capVideoPlayerResult>;
+    play(options: VideoPlayerOneOptions): Promise<VideoPlayerOneResult>;
     private _initializeVideoPlayer;
 }
-declare const CapacitorVideoPlayer: CapacitorVideoPlayerWeb;
-export { CapacitorVideoPlayer };
+declare const VideoPlayerOne: VideoPlayerOneWeb;
+export { VideoPlayerOne };

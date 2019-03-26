@@ -7,10 +7,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { WebPlugin } from '@capacitor/core';
-export class CapacitorVideoPlayerWeb extends WebPlugin {
+export class VideoPlayerOneWeb extends WebPlugin {
     constructor() {
         super({
-            name: 'CapacitorVideoPlayer',
+            name: 'VideoPlayerOne',
             platforms: ['web']
         });
     }
@@ -101,6 +101,6 @@ export class CapacitorVideoPlayerWeb extends WebPlugin {
         });
     }
 }
-const CapacitorVideoPlayer = new CapacitorVideoPlayerWeb();
-export { CapacitorVideoPlayer };
+const VideoPlayerOne = new VideoPlayerOneWeb();
+export { VideoPlayerOne };
 //# sourceMappingURL=web.js.map
