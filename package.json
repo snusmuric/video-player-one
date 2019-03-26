@@ -1,5 +1,5 @@
 {
-  "name": "@irontec/video-player-one",
+  "name": "video-player-one",
   "version": "0.0.1",
   "description": "Capacitor Video Player Plugin",
   "main": "dist/esm/index.js",
@@ -52,6 +52,6 @@
     "url": "https://github.com/irontec/video-player-one"
   },
   "bugs": {
-    "url": "https://github.com/irontec/video-player-one/issues"
+    "url": "https://github.com/irontec/video-player/issues"
   }
 }
