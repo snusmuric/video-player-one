@@ -2,9 +2,6 @@
 //  ViewController.swift
 //  IonicRunner
 //
-//  Created by Max Lynch on 3/22/17.
-//  Copyright © 2017 Max Lynch. All rights reserved.
-//
 
 import UIKit
 import WebKit
@@ -22,10 +19,12 @@ public class CAPBridgeViewController: UIViewController, CAPBridgeDelegate, WKScr
   }
   
   private var hostname: String?
+  private var allowNavigationConfig: [String]?
   private var basePath: String = ""
   
   private var isStatusBarVisible = true
   private var statusBarStyle: UIStatusBarStyle = .default
+  @objc public var supportedOrientations: Array<Int> = []
   
   // Construct the Capacitor runtime
   public var bridge: CAPBridge?
@@ -33,11 +32,12 @@ public class CAPBridgeViewController: UIViewController, CAPBridgeDelegate, WKScr
   
   override public func loadView() {
     setStatusBarDefaults()
-    
+    setScreenOrientationDefaults()
+
+    HTTPCookieStorage.shared.cookieAcceptPolicy = HTTPCookie.AcceptPolicy.always
     let webViewConfiguration = WKWebViewConfiguration()
 
-    webViewConfiguration.setURLSchemeHandler(CAPAssetHandler(), forURLScheme: "capacitor")
-    webViewConfiguration.setURLSchemeHandler(CAPAssetHandler(), forURLScheme: "capacitor-asset")
+    webViewConfiguration.setURLSchemeHandler(CAPAssetHandler(), forURLScheme: CAPBridge.CAP_SCHEME)
     
     let o = WKUserContentController()
     o.add(self, name: "bridge")
@@ -53,26 +53,21 @@ public class CAPBridgeViewController: UIViewController, CAPBridgeDelegate, WKScr
     
     webView?.uiDelegate = self
     webView?.navigationDelegate = self
-    //If you want to implement the delegate
-    //webView?.navigationDelegate = self
     webView?.configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
     view = webView
     
     setKeyboardRequiresUserInteraction(false)
     
     bridge = CAPBridge(self, o)
+    if let scrollEnabled = CAPConfig.getValue("ios.scrollEnabled") as? Bool {
+        webView?.scrollView.isScrollEnabled = scrollEnabled
+    }
   }
   
   override public func viewDidLoad() {
     super.viewDidLoad()
     self.becomeFirstResponder()
-    
     loadWebView()
-    bridge!.didLoad()
-  }
-  
-  public override func viewWillAppear(_ animated: Bool) {
-    bridge!.willAppear()
   }
   
   func loadWebView() {
@@ -85,6 +80,7 @@ public class CAPBridgeViewController: UIViewController, CAPBridgeDelegate, WKScr
     }
 
     hostname = CAPConfig.getString("server.url") ?? "\(bridge!.getLocalUrl())"
+    allowNavigationConfig = CAPConfig.getValue("server.allowNavigation") as? Array<String>
 
 
     print("⚡️  Loading app at \(hostname!)...")
@@ -114,11 +110,35 @@ public class CAPBridgeViewController: UIViewController, CAPBridgeDelegate, WKScr
     }
   }
 
+  public func setScreenOrientationDefaults() {
+    if let plist = Bundle.main.infoDictionary {
+      if let orientations = plist["UISupportedInterfaceOrientations"] as? Array<String> {
+        for orientation in orientations {
+          if orientation == "UIInterfaceOrientationPortrait" {
+            self.supportedOrientations.append(UIInterfaceOrientation.portrait.rawValue)
+          }
+          if orientation == "UIInterfaceOrientationPortraitUpsideDown" {
+            self.supportedOrientations.append(UIInterfaceOrientation.portraitUpsideDown.rawValue)
+          }
+          if orientation == "UIInterfaceOrientationLandscapeLeft" {
+            self.supportedOrientations.append(UIInterfaceOrientation.landscapeLeft.rawValue)
+          }
+          if orientation == "UIInterfaceOrientationLandscapeRight" {
+            self.supportedOrientations.append(UIInterfaceOrientation.landscapeRight.rawValue)
+          }
+        }
+        if self.supportedOrientations.count == 0 {
+          self.supportedOrientations.append(UIInterfaceOrientation.portrait.rawValue)
+        }
+      }
+    }
+  }
+
   public func configureWebView(configuration: WKWebViewConfiguration) {
     configuration.allowsInlineMediaPlayback = true
     configuration.suppressesIncrementalRendering = false
     configuration.allowsAirPlayForMediaPlayback = true
-    //configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone
+    configuration.mediaTypesRequiringUserActionForPlayback = []
   }
 
   public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
@@ -127,7 +147,16 @@ public class CAPBridgeViewController: UIViewController, CAPBridgeDelegate, WKScr
   }
 
   public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    NotificationCenter.default.post(name: Notification.Name(CAPNotifications.DecidePolicyForNavigationAction.name()), object: navigationAction)
     let navUrl = navigationAction.request.url!
+    if let allowNavigation = allowNavigationConfig, let requestHost = navUrl.host {
+      for pattern in allowNavigation {
+        if matchHost(host: requestHost, pattern: pattern) {
+          decisionHandler(.allow)
+          return
+        }
+      }
+    }
     if let scheme = navUrl.scheme {
       let validSchemes = ["tel", "mailto", "facetime", "sms", "maps", "itms-services", "http", "https"]
       if validSchemes.contains(scheme) && navUrl.absoluteString.range(of: hostname!) == nil && (navigationAction.targetFrame == nil || (navigationAction.targetFrame?.isMainFrame)!) {
@@ -218,12 +247,33 @@ public class CAPBridgeViewController: UIViewController, CAPBridgeDelegate, WKScr
     print("\n⚡️  See above for help with debugging blank-screen issues")
   }
 
+  func matchHost(host: String, pattern: String) -> Bool {
+    var host = host.split(separator: ".")
+    var pattern = pattern.split(separator: ".")
+
+    if host.count != pattern.count {
+      return false
+    }
+
+    if host == pattern {
+      return true
+    }
+
+    let wildcards = pattern.enumerated().filter { $0.element == "*" }
+    for wildcard in wildcards.reversed() {
+      host.remove(at: wildcard.offset)
+      pattern.remove(at: wildcard.offset)
+    }
+
+    return host == pattern
+  }
+
   override public func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
 
-  override public func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+  override public func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
     if bridge != nil {
       if motion == .motionShake && bridge!.isDevMode() {
         bridge!.showDevMode()
@@ -342,6 +392,27 @@ public class CAPBridgeViewController: UIViewController, CAPBridgeDelegate, WKScr
     setServerPath(path: path)
     let request = URLRequest(url: URL(string: hostname!)!)
     _ = getWebView().load(request)
+  }
+
+  override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+    return UIApplication.shared.statusBarOrientation
+  }
+
+  override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    var ret = 0
+    if self.supportedOrientations.contains(UIInterfaceOrientation.portrait.rawValue) {
+      ret = ret | (1 << UIInterfaceOrientation.portrait.rawValue)
+    }
+    if self.supportedOrientations.contains(UIInterfaceOrientation.portraitUpsideDown.rawValue) {
+      ret = ret | (1 << UIInterfaceOrientation.portraitUpsideDown.rawValue)
+    }
+    if self.supportedOrientations.contains(UIInterfaceOrientation.landscapeRight.rawValue) {
+      ret = ret | (1 << UIInterfaceOrientation.landscapeRight.rawValue)
+    }
+    if self.supportedOrientations.contains(UIInterfaceOrientation.landscapeLeft.rawValue) {
+      ret = ret | (1 << UIInterfaceOrientation.landscapeLeft.rawValue)
+    }
+    return UIInterfaceOrientationMask.init(rawValue: UInt(ret))
   }
 
   /**
