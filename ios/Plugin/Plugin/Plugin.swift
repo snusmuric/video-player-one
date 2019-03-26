@@ -6,8 +6,8 @@ import AVKit
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitor.ionicframework.com/docs/plugins/ios
  */
-@objc(CapacitorVideoPlayer)
-public class CapacitorVideoPlayer: CAPPlugin {
+@objc(VideoPlayer)
+public class VideoPlayer: CAPPlugin {
     
     var player: AVPlayer!
     var isVideoPlaying: Bool = false

@@ -15,7 +15,7 @@ class PluginTests: XCTestCase {
     }
     
     func test_play_without_url() {
-        let plugin = CapacitorVideoPlayer()
+        let plugin = VideoPlayer()
         let call = CAPPluginCall(callbackId: "test", options: [:], success: { (result, call) in
             let resultValue = result!.data["result"] as! Bool
             XCTAssertFalse(resultValue)
