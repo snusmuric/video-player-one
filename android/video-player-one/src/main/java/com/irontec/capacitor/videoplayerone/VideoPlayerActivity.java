@@ -7,7 +7,9 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
@@ -88,6 +90,14 @@ public class VideoPlayerActivity  extends AppCompatActivity {
         if (haveStartPosition) {
             player.seekTo(startWindow, startPosition);
         }
+        player.addListener(new Player.EventListener() {
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+                if (playbackState == Player.STATE_ENDED) {
+                    finish();
+                }
+            }
+        });
         player.prepare(videoSource);
 
     }
@@ -211,4 +221,5 @@ public class VideoPlayerActivity  extends AppCompatActivity {
             trackSelector = null;
         }
     }
+
 }
