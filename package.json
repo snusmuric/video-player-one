@@ -1,6 +1,6 @@
 {
   "name": "video-player-one",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Capacitor Video Player Plugin",
   "main": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
