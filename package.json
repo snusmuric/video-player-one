@@ -20,7 +20,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@capacitor/core": "^1.0.0-beta.24"
+    "@capacitor/core": "^1.0.0-beta.25"
   },
   "devDependencies": {
     "typescript": "~3.2.4"

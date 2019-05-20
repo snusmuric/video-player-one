@@ -1,10 +1,10 @@
 PODS:
-  - Capacitor (1.0.0-beta.24):
-    - CapacitorCordova (= 1.0.0-beta.24)
-  - CapacitorCordova (1.0.0-beta.24)
+  - Capacitor (1.0.0-beta.25):
+    - CapacitorCordova (= 1.0.0-beta.25)
+  - CapacitorCordova (1.0.0-beta.25)
 
 DEPENDENCIES:
-  - Capacitor (= 1.0.0-beta.24)
+  - Capacitor (= 1.0.0-beta.25)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
