@@ -3,7 +3,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.C;
@@ -25,6 +27,7 @@ import com.google.android.exoplayer2.util.Util;
 
 public class VideoPlayerActivity  extends AppCompatActivity {
 
+    private ImageView close;
     private PlayerView playerView;
     private SimpleExoPlayer player;
     private DebugTextViewHelper debugViewHelper;
@@ -65,6 +68,13 @@ public class VideoPlayerActivity  extends AppCompatActivity {
         debugTextView = findViewById(R.id.debug_text_view);
         playerView = findViewById(R.id.player_view);
         playerView.requestFocus();
+        close = findViewById(R.id.close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         if (savedInstanceState != null) {
             trackSelectorParameters = savedInstanceState.getParcelable(KEY_TRACK_SELECTOR_PARAMETERS);

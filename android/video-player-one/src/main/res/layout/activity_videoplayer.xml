@@ -44,4 +44,11 @@
             android:visibility="gone"/>
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_action_close"
+        android:layout_margin="16dp"/>
 </FrameLayout>
